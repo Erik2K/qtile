@@ -1,98 +1,80 @@
 from libqtile.bar import Bar
 
 from libqtile.widget.groupbox import GroupBox
-from libqtile.widget.currentlayout import CurrentLayout
-from libqtile.widget.window_count import WindowCount
-from libqtile.widget.windowname import WindowName
-from libqtile.widget.cpu import CPU
-from libqtile.widget.memory import Memory
-from libqtile.widget.net import Net
-from libqtile.widget.systray import Systray
 from libqtile.widget.clock import Clock
 from libqtile.widget.spacer import Spacer
+from libqtile.widget.textbox import TextBox
+from libqtile.widget.battery import Battery
+from libqtile.widget.pulse_volume import PulseVolume
+
 
 from colors import gruvbox
-from unicodes import left_half_circle, right_half_circle
+from unicodes import right_arrow, left_arrow
 
 bar = Bar([
-    left_half_circle(gruvbox['yellow'], gruvbox['bg']),
-    CurrentLayout(
-        background=gruvbox['yellow'],
+    TextBox(
+        '󰣇',
+        background=gruvbox['red'],
+        foreground=gruvbox['fg'],
+        fontsize=28,
     ),
-    right_half_circle(gruvbox['yellow'], gruvbox['bg']),
-
-    Spacer(length=10),
-
-    left_half_circle(gruvbox['dark-blue'], gruvbox['bg']),
-    WindowCount(
-        text_format='缾 {num}',
-        background=gruvbox['dark-blue'],
-        show_zero=True
-    ),
-    right_half_circle(gruvbox['dark-blue'], gruvbox['bg']),
-
-    Spacer(length=10),
-
-    left_half_circle(gruvbox['blue'], gruvbox['bg']),
-    Clock(
-        background=gruvbox['blue'],
-        format=' %Y-%m-%d %a %I:%M %p'),
-    right_half_circle(gruvbox['blue'], gruvbox['bg']),
-
-    Spacer(length=10),
-
-    # Prompt(foreground=gruvbox['fg']),
-
-    WindowName(foreground=gruvbox['fg']),
-
-    Spacer(length=100),
-
-    left_half_circle(gruvbox['bg'], gruvbox['bg']),
+    
+    right_arrow(gruvbox['bg1'], gruvbox['red']),
+    
     GroupBox(
+        font='JetBrainsMono Nerd Font Mono',
+        fontsize=27,
+        padding_x=3,
+        padding_y=5,
+        rounded=False,
+        center_aligned=True,
         disable_drag=True,
-        active=gruvbox['gray'],
-        inactive=gruvbox['dark-gray'],
-        highlight_method='line',
-        block_highlight_text_color=gruvbox['purple'],
-        borderwidth=0,
-        highlight_color=gruvbox['bg'],
-        background=gruvbox['bg']
+        borderwidth=3,
+        highlight_method="line",
+        active=gruvbox["fg"],
+        inactive=gruvbox["fg"],
+        highlight_color=gruvbox["bg1"],
+        this_current_screen_border=gruvbox["red"],
+        this_screen_border=gruvbox["red"],
+        other_screen_border=gruvbox["red"],
+        other_current_screen_border=gruvbox["red"],
+        background=gruvbox["bg1"],
+        foreground=gruvbox["fg"],
     ),
-    right_half_circle(gruvbox['bg'], gruvbox['bg']),
+    
+    right_arrow(gruvbox['bg'], gruvbox['bg1']),
 
-    Spacer(length=100),
+    Spacer(length=1210),
+    
+    left_arrow(gruvbox['bg'], gruvbox['dark-yellow']),
+    
+    PulseVolume(
+        fmt="󰕾 {}",
+        fontsize=14,
+        foreground=gruvbox["bg"],
+        background=gruvbox["dark-yellow"],
+        padding=10,
+    ),
+    
+    left_arrow(gruvbox['dark-yellow'], gruvbox['dark-blue']),
 
-    Systray(
-        padding=15,
-        # background='#00000000'
+    Battery(
+        format='󰁿 {percent:2.0%}',
+        foreground=gruvbox['fg'],
+        background=gruvbox['dark-blue'],
+        fontsize=14,
     ),
 
-    Spacer(length=10),
+    left_arrow(gruvbox['dark-blue'], gruvbox['fg']),
 
-    left_half_circle(gruvbox['dark-aqua'], gruvbox['bg']),
-    CPU(
-        format=' {freq_current}GHz {load_percent}%',
-        background=gruvbox['dark-aqua']),
-    right_half_circle(gruvbox['dark-aqua'], gruvbox['bg']),
-
-    Spacer(length=10),
-
-    left_half_circle(gruvbox['dark-purple'], gruvbox['bg']),
-    Memory(
-        format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-        background=gruvbox['dark-purple']),
-    right_half_circle(gruvbox['dark-purple'], gruvbox['bg']),
-
-    Spacer(length=10),
-
-    left_half_circle(gruvbox['dark-aqua'], gruvbox['bg']),
-    Net(
-        background=gruvbox['dark-aqua']
+    Clock(
+        format=' %a %d %b %H:%M',
+        background=gruvbox['fg'],
+        foreground=gruvbox['bg'],
+        fontsize=14,
     ),
-    right_half_circle(gruvbox['dark-aqua'], gruvbox['bg'])
 ],
-    margin=8,
-    # background='#00000000',
-    opacity=1,
-    size=25,
+    30,
+    margin=[6, 10, 6, 10],
+    border_width=[0, 0, 0, 0],
 )

@@ -33,32 +33,44 @@ terminal = guess_terminal()
 # ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
 
 keys = [
+    # Move window focus
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    
+    # Move window
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    
+    # Grow window
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    
+    # Reset all window sizes
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    
+    # Split stack layout
     Key(
         [mod, "shift"],
         "Return",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
+    
+    # Common controls
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    
+    # Shutdown and reload
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     
     # Toggle floating and fullscreen
     Key([mod], "f", lazy.window.toggle_fullscreen(),
@@ -90,35 +102,48 @@ keys = [
 
 groups = [
     Group(
-        '1',
-        label="一",
-        matches=[
-            Match(wm_class='firefox'),
-            Match(wm_class='brave'),
-            Match(wm_class='qutebrowser')
-        ],
-        layout="stack"
-    ),
-    Group('2', label="二", layout="monadtall"),
-    Group('3', label="三", layout="columns"),
-    Group(
-        '4',
-        label="四",
-        matches=[
-            Match(wm_class="whatsdesk")
-        ],
-        layout="stack"
+        "1",
+        label="",
+        layout="columns",
+        matches=[Match(wm_class=["Alacritty", "Alacritty"])],
     ),
     Group(
-        '5',
-        label="五",
-        layout="stack"
+        "2",
+        label="󰨞",
+        layout="columns",   
+        matches=[Match(wm_class=["code", "Code"])],
     ),
-    Group('6', label="六", matches=[
-          Match(wm_class="thunderbird")], layout="monadtall"),
-    Group('7', label="七", layout="monadtall"),
-    Group('8', label="八", layout="monadtall"),
-    Group('9', label="九", layout="monadtall"),
+    Group(
+        "3",
+        label="",
+        layout="columns",
+        matches=[Match(wm_class=["google-chrome", "Google-chrome"])],
+    ),
+    Group(
+        "4",
+        label="",
+        layout="columns",
+    ),
+    Group(
+        "5",
+        label="󰡨",
+        layout="columns",
+    ),
+    Group(
+        "6",
+        label="󰅟",
+        layout="columns",
+    ),
+    Group(
+        "7",
+        label="",
+        layout="columns",
+    ),
+    Group(
+        "8",
+        label="",
+        layout="columns",
+    ),
 ]
 
 
@@ -137,6 +162,15 @@ groups.append(
         'scratchpad',
         [
             DropDown(
+                'net',
+                'alacritty -e "nmtui"',
+                width=0.4,
+                height=0.6,
+                x=0.3,
+                y=0.1,
+                opacity=1
+            ),
+            DropDown(
                 'mixer',
                 'pavucontrol',
                 width=0.4,
@@ -150,10 +184,8 @@ groups.append(
 )
 
 keys.extend([
-    Key(["control"], "1", lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key(["control"], "2", lazy.group['scratchpad'].dropdown_toggle('mixer')),
-    Key(["control"], "3", lazy.group['scratchpad'].dropdown_toggle('pomodoro')),
-    Key(["control"], "4", lazy.group['scratchpad'].dropdown_toggle('blueman')),
+    Key([mod,"control"], "1", lazy.group['scratchpad'].dropdown_toggle('net')),
+    Key([mod, "control"], "2", lazy.group['scratchpad'].dropdown_toggle('mixer')),
 ])
         
 # ██╗      █████╗ ██╗   ██╗ ██████╗ ██╗   ██╗████████╗███████╗
@@ -165,18 +197,18 @@ keys.extend([
 
 layouts = [
     Columns(
-        border_normal=gruvbox['bg1'],
-        border_focus=gruvbox['red'],
+        border_normal=gruvbox['bg'],
+        border_focus=gruvbox['bg3'],
         border_width=2,
-        border_normal_stack=gruvbox['bg1'],
-        border_focus_stack=gruvbox['red'],
+        border_normal_stack=gruvbox['bg'],
+        border_focus_stack=gruvbox['bg3'],
         border_on_single=2,
         margin=8,
         margin_on_single=10,
     ),
     Stack(
-        border_normal=gruvbox['bg1'],
-        border_focus=gruvbox['red'],
+        border_normal=gruvbox['bg'],
+        border_focus=gruvbox['bg3'],
         border_width=2,
         num_stacks=1,
         margin=10,
