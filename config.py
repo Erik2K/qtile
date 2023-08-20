@@ -143,6 +143,7 @@ groups = [
         "8",
         label="",
         layout="columns",
+        matches=[Match(wm_class=["spotify", "Spotify"])],
     ),
 ]
 
