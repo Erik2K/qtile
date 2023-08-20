@@ -262,15 +262,15 @@ extension_defaults = widget_defaults.copy()
 screens = [
     Screen(
         top=bar,
-        wallpaper='~/Documents/wallpapers/red-samurai-wallpaper.png',
+        wallpaper='~/.config/qtile/wallpapers/red-samurai-wallpaper.png',
         wallpaper_mode='stretch',
     ),
     Screen(
-        wallpaper='~/Documents/wallpapers/red-samurai-wallpaper.png',
+        wallpaper='~/.config/qtile/wallpapers/red-samurai-wallpaper.png',
         wallpaper_mode='stretch',
     ),
     Screen(
-        wallpaper='~/Documents/wallpapers/red-samurai-wallpaper.png',
+        wallpaper='~/.config/qtile/wallpapers/red-samurai-wallpaper.png',
         wallpaper_mode='stretch',
     ),
 ]

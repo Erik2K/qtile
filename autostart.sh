@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Display configutation
-./displays/triple-monitor-layout.sh
+~/.config/qtile/displays/triple-monitor-layout.sh
 
 # Programs
 picom &
