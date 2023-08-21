@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from libqtile import bar, layout, widget, hook, extension
+from libqtile import bar, hook, extension
 from libqtile.layout.columns import Columns
 from libqtile.layout.stack import Stack
 from libqtile.layout.floating import Floating
@@ -34,51 +34,49 @@ terminal = guess_terminal()
 
 keys = [
     # Move window focus
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "l", lazy.layout.right()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod], "space", lazy.layout.next()),
     
     # Move window
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
     
     # Grow window
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "h", lazy.layout.grow_left()),
+    Key([mod, "control"], "l", lazy.layout.grow_right()),
+    Key([mod, "control"], "j", lazy.layout.grow_down()),
+    Key([mod, "control"], "k", lazy.layout.grouw_up()),
     
     # Reset all window sizes
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "n", lazy.layout.normalize()),
+    
+    # Toggle fullscreen window
+    Key([mod], "f", lazy.window.toggle_fullscreen()),
+    
+    # Toggle floating window
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
+    
+    #  Kill focused window
+    Key([mod], "w", lazy.window.kill()),
+    
+    # Move screen focus
+    Key([mod], "Right", lazy.next_screen()),
     
     # Split stack layout
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
-    
-    # Common controls
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    
-    # Shutdown and reload
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    
-    # Toggle floating and fullscreen
-    Key([mod], "f", lazy.window.toggle_fullscreen(),
-        desc="Toggle fullscreen mode"),
-    Key([mod, "shift"], "space", lazy.window.toggle_floating(),
-        desc="Toggle fullscreen mode"),
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
-    # Dmenu
+    # Toggle layouts
+    Key([mod], "Tab", lazy.next_layout()),
+
+    # Launch terminal
+    Key([mod], "Return", lazy.spawn(terminal)),
+
+    # Launch dmenu
     Key([mod], "p", lazy.run_extension(extension.DmenuRun(
         font="JetBrainsMono Nerd Font",
         fontsize="12",
@@ -90,7 +88,10 @@ keys = [
         foreground=gruvbox['gray'],
         selected_background=gruvbox['bg1'],
         selected_foreground=gruvbox['blue'],
-))),
+    ))),
+    
+    # Reload qtile config
+    Key([mod, "control"], "r", lazy.reload_config()),
 ]
 
 #  ██████╗ ██████╗  ██████╗ ██╗   ██╗██████╗ ███████╗
