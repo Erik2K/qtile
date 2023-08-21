@@ -132,19 +132,20 @@ groups = [
     ),
     Group(
         "6",
-        label="󰅟",
+        label="󰙯",
         layout="columns",
+        matches=[Match(wm_class=["discord", "discord"])],
     ),
     Group(
         "7",
-        label="",
-        layout="columns",
-    ),
-    Group(
-        "8",
         label="",
         layout="columns",
         matches=[Match(wm_class=["spotify", "Spotify"])],
+    ),
+    Group(
+        "8",
+        label="",
+        layout="columns",
     ),
 ]
 
