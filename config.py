@@ -124,11 +124,13 @@ groups = [
         "4",
         label="",
         layout="columns",
+        matches=[Match(wm_class=["Thunar"])],
     ),
     Group(
         "5",
-        label="󰡨",
+        label="󱂛",
         layout="columns",
+        matches=[Match(wm_class=["insomnia"])],
     ),
     Group(
         "6",
